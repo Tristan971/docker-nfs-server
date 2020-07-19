@@ -16,5 +16,6 @@ RUN mkdir -p /var/lib/nfs/rpc_pipefs                                            
 EXPOSE 2049
 
 # setup entrypoint
-COPY ./entrypoint.sh /usr/local/bin
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+COPY entrypoint.sh /usr/local/bin
+COPY entrypoint-await-ready.sh /usr/local/bin
+ENTRYPOINT ["/usr/local/bin/entrypoint-await-ready.sh"]
