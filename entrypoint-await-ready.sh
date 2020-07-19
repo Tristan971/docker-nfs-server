@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
 
-EXPORTS_ROOT="/etc/exports"
-EXPORTS_READY_MARKER_FILE=${EXPORTS_READINESS_FILE_NAME:-".exports-ready"}
+set -euo pipefail
 
-EXPORTS_READY_MARKER="$EXPORTS_ROOT/$EXPORTS_READY_MARKER_FILE"
+READINESS_MARKER_LOCATION="${READINESS_MARKER_LOCATION:-/nfs/.ready}"
 
-echo "Will await the presence of [$EXPORTS_READY_MARKER] before starting"
+echo "Will await the presence of [$READINESS_MARKER_LOCATION] before starting"
 
-while ! [ -f "$EXPORTS_READY_MARKER" ]; do
-  echo "Exports not ready yet... Sleeping 5 seconds..."
+while ! [ -f "$READINESS_MARKER_LOCATION" ]; do
+  echo "Readiness marker [$READINESS_MARKER_LOCATION] not present yet... Sleeping 5 seconds..."
   sleep 5
 done
 
